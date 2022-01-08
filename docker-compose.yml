@@ -42,18 +42,18 @@ services:
   # platform: linux/x86_64 # M1チップ対応のため追記
   # environmentでは、MySQLコンテナでの環境変数を設定しています。
   environment:
-    # MYSQL_DATABASEはイメージの起動時に作成するデータベースの名前
-    MYSQL_DATABASE: docker_laravel_react
-    # MYSQL_USER, MYSQL_PASSWORDは新規ユーザーの作成とそのユーザーのパスワードの設定
-    MYSQL_USER: user
-    MYSQL_PASSWORD: root
-    # MYSQL_ROOT_PASSWORDはMySQLにおけるルートユーザーであるrootアカウントのパスワードの設定
-    MYSQL_ROOT_PASSWORD: root
+    # # MYSQL_DATABASEはイメージの起動時に作成するデータベースの名前
+    # MYSQL_DATABASE: docker_laravel_react
+    # # MYSQL_USER, MYSQL_PASSWORDは新規ユーザーの作成とそのユーザーのパスワードの設定
+    # MYSQL_USER: user
+    # MYSQL_PASSWORD: root
+    # # MYSQL_ROOT_PASSWORDはMySQLにおけるルートユーザーであるrootアカウントのパスワードの設定
+    # MYSQL_ROOT_PASSWORD: root
     TZ: 'Asia/Tokyo'
-  # MYSQL_DATABASE: ${DB_NAME}
-  # MYSQL_USER: ${DB_USER}
-  # MYSQL_PASSWORD: ${DB_PASSWORD}
-  # MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+  MYSQL_DATABASE: ${DB_DATABASE}
+  MYSQL_USER: ${DB_USERNAME}
+  MYSQL_PASSWORD: ${DB_PASSWORD}
+  MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
   ports:
     - "3306:3306"
   volumes:
