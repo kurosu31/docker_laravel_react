@@ -43,17 +43,13 @@ services:
   # environmentでは、MySQLコンテナでの環境変数を設定しています。
   environment:
     # # MYSQL_DATABASEはイメージの起動時に作成するデータベースの名前
-    # MYSQL_DATABASE: docker_laravel_react
-    # # MYSQL_USER, MYSQL_PASSWORDは新規ユーザーの作成とそのユーザーのパスワードの設定
-    # MYSQL_USER: user
-    # MYSQL_PASSWORD: root
-    # # MYSQL_ROOT_PASSWORDはMySQLにおけるルートユーザーであるrootアカウントのパスワードの設定
-    # MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: ${DB_DATABASE}
+    # MYSQL_USER, MYSQL_PASSWORDは新規ユーザーの作成とそのユーザーのパスワードの設定
+    MYSQL_USER: ${DB_USERNAME}
+    MYSQL_PASSWORD: ${DB_PASSWORD}
+    # MYSQL_ROOT_PASSWORDはMySQLにおけるルートユーザーであるrootアカウントのパスワードの設定
+    MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     TZ: 'Asia/Tokyo'
-  MYSQL_DATABASE: ${DB_DATABASE}
-  MYSQL_USER: ${DB_USERNAME}
-  MYSQL_PASSWORD: ${DB_PASSWORD}
-  MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
   ports:
     - "3306:3306"
   volumes:
@@ -61,51 +57,3 @@ services:
 volumes: # 追加
  mysql-data:
 
-
-
-
-# version: '3.8'
-
-# volumes:
-#   mysql-volume:
-
-# services:
-#   app:
-#     build:
-#       context: .
-#       dockerfile: ./docker/php/Dockerfile
-#     volumes:
-#       - ./src/:/var/www/html
-#     environment:
-#       - DB_CONNECTION=mysql
-#       - DB_HOST=db
-#       - DB_PORT=3306
-#       - DB_DATABASE=${DB_NAME}
-#       - DB_USERNAME=${DB_USER}
-#       - DB_PASSWORD=${DB_PASSWORD}
-
-#   web:
-#     build:
-#       context: .
-#       dockerfile: ./docker/nginx/Dockerfile
-#     ports:
-#       - ${WEB_PORT}:80
-#     depends_on:
-#       - app
-#     volumes:
-#       - ./src/:/var/www/html
-
-#   db:
-#     build:
-#       context: .
-#       dockerfile: ./docker/mysql/Dockerfile
-#     ports:
-#       - ${DB_PORT}:3306
-#     environment:
-#       MYSQL_DATABASE: ${DB_NAME}
-#       MYSQL_USER: ${DB_USER}
-#       MYSQL_PASSWORD: ${DB_PASSWORD}
-#       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-#       TZ: 'Asia/Tokyo'
-#     volumes:
-#       - mysql-volume:/var/lib/mysql
