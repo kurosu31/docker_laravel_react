@@ -9,7 +9,7 @@ function Example() {
                 <div className="col-md-8">
                     <div className="card">
                         <div className="card-header">なまけやで！！！</div>
-                        <div className="card-body">I'm an example component!</div>
+                        <div className="card-body">pages下に移動出来た？？</div>
 
                         <Button color="primary" variant="contained">Hello World</Button>
                     </div>
