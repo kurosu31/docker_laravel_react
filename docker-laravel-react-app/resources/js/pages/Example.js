@@ -10,8 +10,8 @@ function Example() {
                     <div className="card">
                         <div className="card-header">なまけやで！！！</div>
                         <div className="card-body">pages下に移動出来た？？</div>
-
-                        <Button color="primary" variant="contained">Hello World</Button>
+                        <span>namake</span>
+                        <Button color="secondary" variant="contained">Homeに遷移ボタン</Button>
                     </div>
                 </div>
             </div>
@@ -20,8 +20,10 @@ function Example() {
 
 }
 
+
 export default Example;
 
-if (document.getElementById('app')) {
-    ReactDOM.render(<Example />, document.getElementById('app'));
-}
+// 下記の表示設定はroute.js側で行えるようになったため、削除
+//if (document.getElementById('app')) {
+//    ReactDOM.render(<Example />, document.getElementById('app'));
+//}
