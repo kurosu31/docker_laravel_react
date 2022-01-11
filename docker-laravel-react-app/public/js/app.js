@@ -11532,35 +11532,20 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["default"])(fu
   });
 }); // ヘッダーのコンテンツ用の配列定義
 
-var headerList = ['名前', 'タスク内容', '編集', '完了']; // tasks(rows)を定義する
-
-var rows = [{
-  name: "モーリー",
-  content: "肩トレ",
-  editBtn: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    color: "secondary",
-    variant: "contained",
-    children: "\u7DE8\u96C6"
-  }),
-  deleteBtn: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    color: "primary",
-    variant: "contained",
-    children: "\u5B8C\u4E86"
-  })
-}, {
-  name: "ドンキーコング",
-  content: "バナナ補給",
-  editBtn: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    color: "secondary",
-    variant: "contained",
-    children: "\u7DE8\u96C6"
-  }),
-  deleteBtn: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    color: "primary",
-    variant: "contained",
-    children: "\u5B8C\u4E86"
-  })
-}];
+var headerList = ['名前', 'タスク内容', '編集', '完了']; // // tasks(rows)を定義する
+// let rows = [
+//     {
+//         name: "モーリー",
+//         content: "肩トレ",
+//         editBtn: <Button color="secondary" variant="contained">編集</Button>,
+//         deleteBtn: <Button color="primary" variant="contained">完了</Button>,
+//     },    {
+//         name: "ドンキーコング",
+//         content: "バナナ補給",
+//         editBtn: <Button color="secondary" variant="contained">編集</Button>,
+//         deleteBtn: <Button color="primary" variant="contained">完了</Button>,
+//     }
+// ]
 
 function Home() {
   // 定義したスタイルを利用するための設定
@@ -11585,8 +11570,27 @@ function Home() {
     })["catch"](function () {
       console.log('通信に失敗しました');
     });
-  };
+  }; // からの配列として定義する
 
+
+  var rows = []; // postsの要素ごとにrowで使える形式に変換する
+
+  posts.map(function (post) {
+    return rows.push({
+      name: post.name,
+      content: post.content,
+      editBtn: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        color: "secondary",
+        variant: "contained",
+        children: "\u7DE8\u96C6\u3059\u308B"
+      }),
+      deleteBtn: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        color: "primary",
+        variant: "contained",
+        children: "\u5B8C\u4E86\u3059\u308B"
+      })
+    });
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "container",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
