@@ -50,6 +50,7 @@ services:
     # MYSQL_ROOT_PASSWORDはMySQLにおけるルートユーザーであるrootアカウントのパスワードの設定
     MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     TZ: 'Asia/Tokyo'
+    
   ports:
     - "3306:3306"
   volumes:
