@@ -6,6 +6,7 @@ import { Button, Card, createStyles, makeStyles } from '@material-ui/core';
 
 
 import MainTable from '../components/MainTable';
+import PostFrom from '../components/PostFrom';
 
 //スタイルの定義
 const useStyles = makeStyles((theme) => createStyles({
@@ -17,7 +18,6 @@ const useStyles = makeStyles((theme) => createStyles({
 
 // ヘッダーのコンテンツ用の配列定義
 const headerList = ['名前','タスク内容','編集','完了'];
-
 // // tasks(rows)を定義する
 // let rows = [
 //     {
@@ -38,10 +38,14 @@ function Home() {
     const classes = useStyles();
     // postsの状態を管理する
     const [posts, setPosts] = useState([]);
+    //フォームの入力値を管理するステートの定義
+    const [formData, setFormData] = useState({name:'', content:''});
     //画面に到着したらgetPostsDataを呼ぶ
     useEffect(()=> {
         getPostsData();
     },[])
+
+    //一覧情報を取得しステートpostsにセットする
     const getPostsData =() => {
         // バックエンドからpostsの一覧を取得する処理
         axios
@@ -53,6 +57,40 @@ function Home() {
         .catch(() => {
             console.log('通信に失敗しました');
         });
+    }
+
+    //入力された（都度）入力値を変更するためのfunction
+    const inputChange = (e) => {
+        console.log(e);
+        const key = e.target.name;
+        const value = e.target.value;
+        formData[key] = value;
+        let data = Object.assign({}, formData);
+        setFormData(data);
+    }
+
+    //
+    const createPost = async() => {
+        //空だと弾く
+        if(formData == ''){
+            return;
+        }
+        //入力値を投げる
+        await axios
+            .post('/api/post/create', {
+                name: formData.name,
+                content: formData.content
+            })
+            .then((res) => {
+                //戻り値をtodosにセット
+                const tempPosts = posts
+                tempPosts.push(res.data);
+                setPosts(tempPosts)
+                setFormData('');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     // からの配列として定義する
@@ -71,8 +109,12 @@ function Home() {
             <div className="row justify-content-center">
                 <div className="col-md-10">
                     <h1>タスク管理</h1>
+                    <Card className={classes.card}>
+                    {/* btnFuncを渡す */}
+                        <PostFrom data={formData} btnFunc={createPost} inputChange={inputChange}/>
+                    </Card>
                     <div className="card">
-                    <Card className="{classes.card}">
+                    <Card className={classes.card}>
                         {/* テーブル部分の定義 */}
                         <MainTable headerList={headerList} rows={rows} />
                     </Card>
