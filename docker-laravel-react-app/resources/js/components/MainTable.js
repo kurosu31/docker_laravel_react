@@ -4,7 +4,7 @@ import { purple } from '@material-ui/core/colors';
 
 // スタイルの定義
 const useStyles = makeStyles((theme) => createStyles({
-    card : {
+    card: {
         margin: theme.spacing(5),
         padding: theme.spacing(3),
     },
@@ -17,38 +17,42 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 function MainTable(props){
+    console.log(props);
         //定義したスタイルを利用するための設定
         const classes = useStyles();
 
-        //親コンポーネントからpropsで受け取る
-        const {headerList, rows} =props;
+    //親コンポーネントからpropsで受け取る
+    const {headerList, rows} = props;
+        console.log('show rows');
+        console.log(headerList);
+        console.log(rows);
 
-    return (
-        <TableContainer element ={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-            {/* ヘッダー部分 */}
-            <TableHead className={classes.tableHead}>
-                <TableRow>
-                    {headerList.map((item, index) => (
-                        <TableCell align="center" key={index}>{item}</TableCell>
+        return (
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    {/* ヘッダー部分 */}
+                    <TableHead className={classes.tableHead}>
+                        <TableRow>
+                            {headerList.map((item, index) => (
+                                <TableCell align="center" key={index}>{item}</TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    {/* ボディ部分 */}
+                    <TableBody>
+                        {rows.map((row, index) => (
+                            <TableRow key={index}>
+                                {Object.keys(row).map(function(key, i) {
+                                    return(
+                                        <TableCell align="center" key={i}>{row[key]}</TableCell>
+                                    );
+                                })}
+                            </TableRow>
                         ))}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {rows.map((row, index)=> (
-                    <TableRow key={index}>
-                        {Object.keys(row).map(function(key,i){
-                            return (
-                                <TableCell align="center" key={i}>{row[key]}</TableCell>
-                            )
-                        })}
-                    </TableRow>
-                ))}
-            </TableBody>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+    }
 
-        </Table>
-    </TableContainer>
-    )
-}
-
-export default MainTable;
+    export default MainTable;

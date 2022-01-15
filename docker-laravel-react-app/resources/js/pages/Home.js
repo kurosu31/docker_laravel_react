@@ -97,13 +97,13 @@ function Home() {
     let rows = [];
     // postsの要素ごとにrowで使える形式に変換する
     posts.map((post) =>
-    rows.push({
-        name: post.name,
-        content: post.content,
-        editBtn: <Button color="secondary" variant="contained">編集する</Button>,
-        deleteBtn: <Button color="primary" variant="contained">完了する</Button>,
-    }))
-
+        rows.push({
+            name: post.name,
+            content: post.content,
+            editBtn: <Button color="secondary" variant="contained" key={post.id} href={`/post/edit/${post.id}`}>編集</Button>,
+            deleteBtn: <Button color="primary" variant="contained" href="/" onClick={() => deletePost(post)}>完了</Button>,
+        })
+    );
     return (
         <div className="container">
             <div className="row justify-content-center">
