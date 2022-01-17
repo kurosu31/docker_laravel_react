@@ -93,6 +93,21 @@ function Home() {
             });
     }
 
+    const deletePost = async (post) => {
+        await axios
+        .post ('/api/delete', {
+            id: post.id
+        })
+        .then((res) => {
+            this.SetState({
+                posts: res.posts
+            });
+        })
+        .catch (error => {
+            console.log(error);
+        });
+    }
+
     // からの配列として定義する
     let rows = [];
     // postsの要素ごとにrowで使える形式に変換する

@@ -2,6 +2,7 @@ import React ,{ useState, useEffect } from 'react';
 import { Card } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import PostFrom from '../components/PostFrom';
+import { useParams } from 'react-router-dom';
 
 // スタイルの定義
 const useStyles = makeStyles((theme) => createStyles({
@@ -11,11 +12,12 @@ const useStyles = makeStyles((theme) => createStyles({
     },
 }));
 
-function PostEdit(props) {
+function PostEdit() {
     const classes = useStyles();
-    console.log(props);
+    const { id } = useParams();
+    console.log(id);
 
-    const params = props.match.params;
+    // const params = props.match.params;
 
     const [editData, setEditData] = useState({name:'', content:''});
 
@@ -27,7 +29,7 @@ function PostEdit(props) {
     function getEditData(){
         axios
             .post('/api/edit', {
-                id: params.id
+                id: id
             })
             .then(res => {
                 setEditData(res.data);
@@ -35,7 +37,7 @@ function PostEdit(props) {
             .catch(() => {
                 console.log('通信に失敗しました');
             });
-            console.log(params.id);
+            console.log(id);
     }
 
     function updatePost(){
@@ -45,12 +47,13 @@ function PostEdit(props) {
         //入力値を投げる
         axios
             .post('/api/update', {
-                id: params.id,
+                id: id,
                 name: editData.name,
                 content: editData.content
             })
             .then((res) => {
                 setEditData(res.data);
+                console.log(res);
             })
             .catch(error => {
                 console.log(error);
@@ -58,6 +61,7 @@ function PostEdit(props) {
     }
 
     function inputChange(e){
+        console.log(e);
         const key = e.target.name;
         const value = e.target.value;
         editData[key] = value;

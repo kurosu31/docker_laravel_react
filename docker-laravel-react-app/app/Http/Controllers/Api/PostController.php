@@ -33,12 +33,21 @@ class PostController extends Controller
     }
 
     /* データを更新するためのアクション */
-    public function delete(Request $request)
+    public function update(Request $request)
     {
         $post = Post::find($request->id);
         $post->name = $request->name;
         $post->content = $request->content;
         $post->save();
+        $posts = Post::all();
+        return $posts;
+    }
+
+    /* データ削除をするためのアクション */
+    public function delete(Request $request)
+    {
+        $post = Post::find($request->id);
+        $post->delete();
         $posts = Post::all();
         return $posts;
     }

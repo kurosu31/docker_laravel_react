@@ -19920,6 +19920,8 @@ var headerList = ['名前', 'タスク内容', '編集', '完了']; // // tasks(
 // ]
 
 function Home() {
+  var _this = this;
+
   // 定義したスタイルを利用するための設定
   var classes = useStyles(); // postsの状態を管理する
 
@@ -20003,6 +20005,36 @@ function Home() {
     return function createPost() {
       return _ref.apply(this, arguments);
     };
+  }();
+
+  var deletePost = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(post) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().post('/api/delete', {
+                id: post.id
+              }).then(function (res) {
+                _this.SetState({
+                  posts: res.posts
+                });
+              })["catch"](function (error) {
+                console.log(error);
+              });
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function deletePost(_x) {
+      return _ref2.apply(this, arguments);
+    };
   }(); // からの配列として定義する
 
 
@@ -20075,10 +20107,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Card/Card.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Card/Card.js");
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/createStyles.js");
 /* harmony import */ var _components_PostFrom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PostFrom */ "./resources/js/components/PostFrom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -20091,6 +20124,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -20108,10 +20142,13 @@ var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["defaul
   });
 });
 
-function PostEdit(props) {
+function PostEdit() {
   var classes = useStyles();
-  console.log(props);
-  var params = props.match.params;
+
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams)(),
+      id = _useParams.id;
+
+  console.log(id); // const params = props.match.params;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     name: '',
@@ -20127,13 +20164,13 @@ function PostEdit(props) {
 
   function getEditData() {
     axios.post('/api/edit', {
-      id: params.id
+      id: id
     }).then(function (res) {
       setEditData(res.data);
     })["catch"](function () {
       console.log('通信に失敗しました');
     });
-    console.log(params.id);
+    console.log(id);
   }
 
   function updatePost() {
@@ -20143,17 +20180,19 @@ function PostEdit(props) {
 
 
     axios.post('/api/update', {
-      id: params.id,
+      id: id,
       name: editData.name,
       content: editData.content
     }).then(function (res) {
       setEditData(res.data);
+      console.log(res);
     })["catch"](function (error) {
       console.log(error);
     });
   }
 
   function inputChange(e) {
+    console.log(e);
     var key = e.target.name;
     var value = e.target.value;
     editData[key] = value;
@@ -20171,7 +20210,7 @@ function PostEdit(props) {
           className: "card",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
             children: "\u30BF\u30B9\u30AF\u7DE8\u96C6"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["default"], {
             className: classes.card,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_PostFrom__WEBPACK_IMPORTED_MODULE_1__["default"], {
               data: editData,
